@@ -59,6 +59,8 @@ if __name__ == "__main__":
         print(f"\tNo name identfier was given. Using poly_id.")
     
     gdf_socio_econ = gpd.read_file(cons.source_shape_file)
+    # Transform vulnerability to numerical
+    gdf_socio_econ["VULNER_NUM"] = gdf_socio_econ.apply(lambda x: cons.VULNER_DICT[x['VULNER']], axis=1)
     gdf_polygons = gpd.read_file(shape_file_path)
     
     # Get relevant admin geoemtries, grouped for variable aggregation

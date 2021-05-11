@@ -1,6 +1,6 @@
 import os
 
-source_shape_file = os.path.join("data", "censo", "limpio", "consolidado", "consolidado.shp")
+source_shape_file = os.path.join("/","Users","andreaparra","Dropbox","4_Work","DataLamaCovid","projects","bogota","data","censo_bogota","shape_files","consolidado", "consolidado.shp")
 
 # Method of grouping for geometry. Overlaps or intersects
 method = 'intersects'
@@ -22,7 +22,8 @@ variable_meaning = {'CODIGO_MZN': 'Codigo Manzana',
                     'ALF_PERCNT': 'Porcentaje de personas alfabetas',
                     'MCF_PERCNT': 'Porcentaje de personas mujeres cabeza de hogar',
                     'NUM_PER': 'Numero de personas',
-                    'VULNER': 'Vulnerabilidad',
+                    'VULNER': 'Vulnerabilidad categorica',
+                    'VULNER_NUM': 'Vulnerabilidad numerica',
                     'IPM': 'Indice de pobreza multidimencional'}
 
 variable_aggr = {'CODIGO_MZN': ['CONCAT', {'NULL_HANDLING': 'DROP_NA',
@@ -42,6 +43,12 @@ variable_aggr = {'CODIGO_MZN': ['CONCAT', {'NULL_HANDLING': 'DROP_NA',
                  'ALF_PERCNT': ['WEIGHTED_MEAN', {'WEIGHT': 'NUM_PER'}],
                  'MCF_PERCNT': ['WEIGHTED_MEAN', {'WEIGHT': 'NUM_PER'}],
                  'NUM_PER': ['SUM'],
-                 'VULNER': ['FREQUENCY'],
+                 'VULNER_NUM': ['MEAN'],
                  'IPM': ['MEAN']}
                 
+VULNER_DICT = {'Vulnerabilidad media-baja': 2,
+                'Vulnerabilidad baja': 1,
+                'Vulnerabilidad media': 3, 
+                'Vulnerabilidad media-alta': 4,
+                'Vulnerabilidad alta': 5,
+                None: None}
